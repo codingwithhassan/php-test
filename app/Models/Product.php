@@ -5,8 +5,8 @@ namespace App\Models;
 class Product
 {
 
-    public String $name;
-    public String $sku;
+    public string $name;
+    public string $sku;
     public float $unitPrice;
 
     /**

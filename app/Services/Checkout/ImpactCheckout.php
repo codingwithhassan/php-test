@@ -8,11 +8,12 @@ use App\ValueObjects\Sku;
 class ImpactCheckout implements CheckoutContract
 {
     private array $products = [];
+
     public function scan(Sku $sku): void
     {
-        if($product = $sku->getProduct()){
+        if ($product = $sku->getProduct()) {
             $this->products[$product->sku][] = $product;
-        }else{
+        } else {
             echo "Product not available";
         }
     }
@@ -20,24 +21,24 @@ class ImpactCheckout implements CheckoutContract
     public function total(): int
     {
         $total = 0;
-        foreach ($this->products as $sku => $products){
+        foreach ($this->products as $sku => $products) {
             /**
              * @var Product $product
              */
             $product = $products[0];
             $count = count($products);
-            if($count > 1){
+            if ($count > 1) {
                 $prices = $product->specialPrices;
 
-                if(count($prices) > 0){
+                if (count($prices) > 0) {
                     $quantity = $this->getMaxQty($prices, $count);
 
-                    if($quantity){
+                    if ($quantity) {
                         // discount applied
-                        do{
+                        do {
                             $total += $prices[$quantity];
                             $count = $count - $quantity;
-                        }while($count > $quantity);
+                        } while ($count > $quantity);
                     }
                 }
             }
@@ -52,7 +53,7 @@ class ImpactCheckout implements CheckoutContract
      * @param int $count
      * @return array
      */
-    public function getMaxQty(array $prices, int $count): ?int
+    private function getMaxQty(array $prices, int $count): ?int
     {
         $quantities = array_keys($prices);
         sort($quantities);

@@ -14,7 +14,8 @@ class ImpactCheckoutTest extends TestCase
 
         $checkout->scan(Sku::fromString('A'));
 
-        $this->assertEquals(50, $checkout->total(), 'Checkout total does not equal expected value of 50');
+        $this->assertEquals(50, $checkout->total(),
+            'Checkout total does not equal expected value of 50');
     }
 
     public function test_4_products_with_1_special_price_total_of_180()
@@ -26,7 +27,8 @@ class ImpactCheckoutTest extends TestCase
         $checkout->scan(Sku::fromString('A'));
         $checkout->scan(Sku::fromString('A'));
 
-        $this->assertEquals(130 + 50, $checkout->total(), 'Checkout total does not equal expected value of 180');
+        $this->assertEquals(130 + 50, $checkout->total(),
+            'Checkout total does not equal expected value of 180');
     }
 
     public function test_multiple_products_with_multiple_special_prices_total_of_385()
@@ -44,6 +46,7 @@ class ImpactCheckoutTest extends TestCase
         $checkout->scan(Sku::fromString('B'));
         $checkout->scan(Sku::fromString('B'));
 
-        $this->assertEquals(130 + 130 + 50 + 45 + 30, $checkout->total(), 'Checkout total does not equal expected value of 385');
+        $this->assertEquals(130 + 130 + 50 + 45 + 30, $checkout->total(),
+            'Checkout total does not equal expected value of 385');
     }
 }

@@ -35,10 +35,10 @@ class ImpactCheckout implements CheckoutContract
 
                     if ($quantity) {
                         // discount applied
-                        do {
-                            $total += $prices[$quantity];
-                            $count = $count - $quantity;
-                        } while ($count > $quantity);
+                        $appliedCount = floor($count / $quantity);
+                        $totalQuantities = $appliedCount * $quantity;
+                        $total += $prices[$quantity] * $appliedCount;
+                        $count = $count - $totalQuantities;
                     }
                 }
             }
@@ -51,7 +51,7 @@ class ImpactCheckout implements CheckoutContract
     /**
      * @param array $prices
      * @param int $count
-     * @return array
+     * @return int|null
      */
     private function getMaxQty(array $prices, int $count): ?int
     {
